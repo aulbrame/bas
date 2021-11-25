@@ -1,0 +1,136 @@
+<?page title="Form eSPT"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<?link rel="shortcut icon" type="image/x-icon" href="/images/app_icon.ico" ?>
+<?link rel="stylesheet" type="text/css"	href="/css/ddp.css" ?>
+<?link rel="stylesheet" type="text/css"	href="/css/style.css" ?>
+<?link rel="stylesheet" type="text/css"	href="/bootstrap/v3/bootstrap/css/bootstrap.css" ?>
+<zk xmlns:w="client" xmlns:n="native">
+	<zscript>
+		com.sai.espt.domain.UserNpwp oUser = (com.sai.espt.domain.UserNpwp) session
+				.getAttribute("oUser");
+		if (oUser == null){
+			Executions.sendRedirect("/timeout.zul");	
+		}
+	</zscript>
+	<borderlayout
+		viewModel="@id('vm') @init('com.sai.espt.viewmodel.UserInitializationVm')">		
+		<north border="none" sclass="blnorth">
+			<div>				
+				<include src="/view/header.zul" />	
+			</div>
+		</north>
+		<!-- <west border="none" collapsible="true" width="205px"
+			splittable="true">
+			<div id="divMenu" height="100%" >
+				<vlayout height="100%">
+					<tree id="tree" vflex="true"
+						style="background-color: #eeeeee">
+						<treecols>
+							<treecol label="Menu" 
+								style="background-color: #314d60; color: #eeeeee" />
+						</treecols>
+						<treechildren id="root" />
+					</tree>
+				</vlayout>								
+			</div>
+		</west> -->
+		<center id="center" border="none" sclass="blcenter">			
+			<!-- <iframe id="ifContent" src="/view/welcome.zul" height="100%" width="100%" /> -->
+	<div align="center" sclass="jumbotron" width="100%" height="100%" style="overflow: auto;background:#13b6ec;"
+				viewModel="@id('vm') @init('com.sai.espt.viewmodel.DownloadVm')"
+				>
+					<n:p class="btn btn-outline btn-lg" style="border-color:white;color:white;">
+						eSPT Document
+					</n:p>
+					<groupbox mold="3d" width="450px" style="padding:0px 0px 0px 0px;">
+							<caption label="Search"
+								image="/images/search1.png" />
+							<grid style="padding:0px 0px 0px 0px;">
+								<columns>
+									<column width="50px" align="left" />
+									<column width="100px" align="left" />
+									<column width="100%" align="left" />
+								</columns>
+								<rows>
+									<row>
+										<label 
+											value="" />
+										<label 
+											value="NIK" />
+										<textbox style="font-weight: bold;" value="@bind(vm.filtNikMarketing)" readonly="true"/>
+									</row>
+									<row>
+										<label 
+											value="" />
+										<label
+											value="Tahun" />
+										<intbox class="" height="25px" width = "50px" id="compFocs" 
+											cols="6" maxlength="4" value="@bind(vm.filtTahun)" 
+							                    onChange="@command('doChangeYear',year = vm.filtTahun)" 
+							                    onFocus="@command('doDisBtn')" />
+									</row>
+									<row>
+										<label 
+											value="" />
+										<label
+											value="Bulan" />
+										<vbox> 
+										 	<combobox id="cbTanggal" model="@load(vm.listBulan)"
+							                    autodrop="true" selectedItem="@bind(vm.filtTrxDate)"
+							                    onChange="@command('doChangeMonth',month = vm.filtTrxDate)"
+							                    onFocus="@command('doEnaBtn')" autocomplete="true" >
+							                    <template name="model">
+							                        <comboitem label="${each}" />
+							                    </template>
+						                	</combobox>
+										</vbox>
+									</row>
+									<row>
+										<label 
+											value="" />
+										<label
+											value="Tipe" />
+										<vbox>
+										 	<combobox id="cbSetIdType" model="@load(vm.listTypes)"
+							                    autodrop="true" selectedItem="@bind(vm.filtTypeID)" 
+							                    onFocus="@command('doEnaBtn')" >
+							                    <template name="model">
+							                        <comboitem label="${each}" />
+							                    </template>
+						                	</combobox>
+										</vbox>
+									</row>
+								</rows>
+								<foot width="100%">
+									<footer />
+									<footer />
+									<footer width="100%">
+										<hlayout>
+											<button id="btnDownload"
+												class="btn btn-default btn-sm"
+												label="Download" onClick="@command('doDownload')" />
+											<button
+												class="btn btn-default btn-sm" label="Reset"
+												onClick="@command('doReset')" />
+										</hlayout>
+									</footer>
+								</foot>
+							</grid>
+						</groupbox>
+						<separator />
+						<div id="divBulan" width="450px">
+							<n:h4>
+								<n:span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></n:span>
+								<n:span class="sr-only">Error:</n:span>
+								<label id="lblNotif"></label>
+							</n:h4>
+						</div>
+			</div>					
+		</center>
+		<south border="none">
+			<div width="100%" align="center">
+					
+			</div>
+		</south>
+	</borderlayout>
+</zk>

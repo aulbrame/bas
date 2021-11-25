@@ -1,0 +1,111 @@
+<?page title="Form eSPT"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<?link rel="shortcut icon" type="image/x-icon" href="/images/app_icon.ico" ?>
+<?link rel="stylesheet" type="text/css"	href="/css/ddp.css" ?>
+<?link rel="stylesheet" type="text/css"	href="/css/style.css" ?>
+<?link rel="stylesheet" type="text/css"	href="/bootstrap/v3/bootstrap/css/bootstrap.css" ?>
+<zk xmlns:w="client" xmlns:n="native">
+	<zscript>
+		com.sai.espt.domain.UserNpwp oUser = (com.sai.espt.domain.UserNpwp) session
+				.getAttribute("oUser");
+		if (oUser == null){
+			Executions.sendRedirect("/view/mobile/timeout.zul");	
+		}
+	</zscript>
+	<borderlayout
+		viewModel="@id('vm') @init('com.sai.espt.viewmodel.UserInitializationVm')">		
+		<north border="none" sclass="blnorth">
+			<div>				
+				<include src="/view/mobile/header.zul" />	
+			</div>
+		</north>
+		<center id="center" border="none" sclass="blcenter">			
+	<div align="center" sclass="jumbotron" width="100%" height="100%" style="overflow: auto;background:#13b6ec;"
+				viewModel="@id('vm') @init('com.sai.espt.viewmodel.DownloadVm')"
+				>
+					<n:p class="btn btn-outline btn-lg" style="border-color:white;color:white;">
+						eSPT Document
+					</n:p>
+					<groupbox mold="3d" width="95%" style="padding:0px 0px 0px 0px;">
+							<caption label="Search"
+								image="/images/search1.png" />
+							<grid style="padding:0px 0px 0px 0px;">
+								<columns>
+									<column width="19%" align="left" />
+									<column width="81%" align="left" />
+								</columns>
+								<rows>
+									<row>
+										<label 
+											value="NIK" />
+										<textbox style="font-weight: bold;" value="@bind(vm.filtNikMarketing)" readonly="true"/>
+									</row>
+									<row>
+										<label
+											value="Tahun" />
+										<intbox class="" height="25px" width = "50px" id="compFocs" 
+											cols="6" maxlength="4" value="@bind(vm.filtTahun)" 
+							                    onChange="@command('doChangeYear',year = vm.filtTahun)" 
+							                    onFocus="@command('doDisBtn')" />
+									</row>
+									<row>
+										<label
+											value="Bulan" />
+										<vbox> 
+										 	<combobox id="cbTanggal" model="@load(vm.listBulan)"
+							                    autodrop="true" selectedItem="@bind(vm.filtTrxDate)"
+							                    onChange="@command('doChangeMonth',month = vm.filtTrxDate)"
+							                    onFocus="@command('doEnaBtn')" autocomplete="true" >
+							                    <template name="model">
+							                        <comboitem label="${each}" />
+							                    </template>
+						                	</combobox>
+										</vbox>
+									</row>
+									<row>
+										<label
+											value="Tipe" />
+										<vbox>
+										 	<combobox id="cbSetIdType" model="@load(vm.listTypes)"
+							                    autodrop="true" selectedItem="@bind(vm.filtTypeID)" 
+							                    onFocus="@command('doEnaBtn')" >
+							                    <template name="model">
+							                        <comboitem label="${each}" />
+							                    </template>
+						                	</combobox>
+										</vbox>
+									</row>
+								</rows>
+								<foot width="100%">
+									<footer />
+									<footer width="100%">
+										<hlayout>
+											<button id="btnDownload"
+												class="btn btn-default btn-sm"
+												label="Download" onClick="@command('doDownload')" />
+											<button
+												class="btn btn-default btn-sm" label="Reset"
+												onClick="@command('doReset')" />
+										</hlayout>
+									</footer>
+								</foot>
+							</grid>
+						</groupbox>
+						<separator />
+						<div id="divBulan" width="450px">
+							<n:h4>
+								<n:span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></n:span>
+								<n:span class="sr-only">Error:</n:span>
+								<label id="lblNotif"></label>
+							</n:h4>
+						</div>
+						<jasperreport id="report" height="360px" />
+			</div>				
+		</center>
+		<south border="none">
+			<div width="100%" align="center">
+					
+			</div>
+		</south>
+	</borderlayout>
+</zk>

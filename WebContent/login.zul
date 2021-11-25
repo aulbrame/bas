@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<?page title="Login eSPT" contentType="text/html;charset=UTF-8"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/images/espt.jpg" ?>
+<?link rel="stylesheet" type="text/css"	href="/css/ddp.css" ?>
+<?link rel="stylesheet" type="text/css"	href="/bootstrap/v3/bootstrap/css/bootstrap.css" ?>
+<?link rel="stylesheet" type="text/css"	href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500" ?>
+
+<?link rel="stylesheet" type="text/css"	href="assets/bootstrap/css/bootstrap.min.css" ?>
+<?link rel="stylesheet" type="text/css"	href="assets/font-awesome/css/font-awesome.min.css" ?>
+<?link rel="stylesheet" type="text/css"	href="assets/css/form-elements.css" ?>
+<?link rel="stylesheet" type="text/css"	href="assets/css/style.css" ?>
+<?link rel="stylesheet" type="text/css"	href="css/login.css" ?>
+
+<!-- Favicon and touch icons -->
+<?link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png" ?>
+<?link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png" ?>
+<?link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png" ?>
+<?link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png" ?>
+
+<zk xmlns:w="client" xmlns:n="native">
+<?link rel="stylesheet" type="text/css"	href="assets/css/login.css" ?>
+	<script src="/bootstrap/v3/zk/js/button-bs.js" />
+	<zscript>
+	com.sai.espt.domain.UserNpwp oUser = (com.sai.espt.domain.UserNpwp) session
+			.getAttribute("oUser");
+	if (oUser != null)
+		Executions.sendRedirect("/view/index.zul");	
+	else{
+		
+	}
+	
+	</zscript>
+        <!-- Top content -->
+        <div class="top-content">
+        	
+            <div class="inner-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-2 text">
+                        	<n:h1>eSPT PPH 21</n:h1>         <!--                  
+                        	<image src="/images/sap-logo.png" width="30%" /> -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3 form-box">
+                        	<div class="form-top">
+                        		<div class="form-top-left">                        			
+                        			<n:h3>Login to eSPT</n:h3>
+                            		<n:p>Enter your username and password to log on:</n:p>
+                        		</div>
+                        		<div class="form-top-right">
+                        			<n:i class="fa fa-key"></n:i> 
+                        		</div>
+                            </div>                            
+                            <div class="form-bottom">
+			                    <div class="login-form" viewModel="@id('vm') @init('com.sai.espt.viewmodel.AuthentificationVm')" >	
+                            	<n:p>
+                            		<div align="center"><label value="@bind(vm.lblMessage)" style="font-size: 16px; color: red" /></div>
+                            	</n:p>                          
+																		
+			                    	<div class="form-group">
+			                    		<n:label class="sr-only" for="form-username">Username</n:label>
+			                    		<textbox value="@bind(vm.unlogin)"
+											maxlength="15" focus="true" sclass="form-username form-control"
+											placeholder="Username..." onOK="@command('doLogin')" />			                        	
+			                        </div>
+			                        <div class="form-group">
+			                        	<n:label class="sr-only" for="form-password">Password</n:label>
+			                        	<textbox value="@bind(vm.unpassword)" type="password"
+											maxlength="20" sclass="form-password form-control"
+											placeholder="Password..." onOK="@command('doLogin')" />	
+			                        </div>
+			                        
+				                        	<n:label class="sr-only" for="form-type">Type</n:label>
+										    <combobox id="filtMerType" autodrop="true" mold="rounded" placeholder="Type..."
+										    buttonVisible="true" readonly="true" 
+										    width="200px" height="10px" value="@bind(vm.typeLogin)" >
+												<comboitem label="GA"/>
+												<comboitem label="BROKER"/>
+											</combobox>
+						                	
+			                        <div align="right">
+				                        <button sclass="btn btn-success"
+											label="Login"
+											onClick="@command('doLogin')" autodisable="self" />
+									</div>
+			                    </div>
+		                    </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                        	<div class="description">
+                            	<n:p>
+	                            	Copyright <a href="login_mobile.zul"><n:strong>e SPT</n:strong></a> 2016
+                            	</n:p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <!-- Javascript -->
+        <script src="assets/js/jquery-1.11.1.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery.backstretch.min.js"></script>
+        <script src="assets/js/scripts.js"></script>
+        
+</zk>

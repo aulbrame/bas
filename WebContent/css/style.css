@@ -1,0 +1,61 @@
+.z-groupbox-content{
+	padding: 0px 0px 0px;
+}
+.z-label, .z-radio-content, .z-checkbox-content{
+	font-family: "Open Sans",Arial,Sans-serif;
+	font-size: 12px;
+}
+.z-combobox-input, .z-bandbox-input, .z-datebox-input, .z-timebox-input, .z-spinner-input, .z-doublespinner-input {
+    font-family: "Open Sans",Arial,Sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    font-style: normal;
+    color: #555;
+    height: 32px;
+    border: 1px solid #e3e3e3;
+    border-right-width: 0;
+    margin: 0;
+    padding: 3px 7px;
+    line-height: 24px;
+    background: #fff;
+}
+.z-combobox-content { /* tak ada padding */
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background: transparent none repeat 0 0;
+    position: relative;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    font-size: 12px;
+}
+.z-groupbox-header{/* jadi bundar */
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 20px 20px 0 0;
+}
+/* .z-grid-footer{
+	border-radius: 0 0 20px 20px;
+}
+.z-groupbox-content{
+	border-radius: 0 0 20px 20px;
+} */
+.z-row:hover > .z-row-inner, .z-row:hover > .z-cell {/* selected */
+  background: #fe975f ; 
+  background-color: #fe975f ; 
+}
+.z-comboitem:hover {
+    color: #fff;
+    background: #fe975f;
+}
+.z-combobox-button:hover {/* selected button */
+    color: #fff;
+    background: #20afdf;
+}
+.z-textbox:focus, .z-decimalbox:focus, .z-intbox:focus, .z-longbox:focus, .z-doublebox:focus{/* focus */
+  border-color: #20afdf ; 
+}
+
+::-moz-selection { background: #20afdf; color: #fff; text-shadow: none; }
+::selection { background: #20afdf; color: #fff; text-shadow: none; }

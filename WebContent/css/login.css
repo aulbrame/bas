@@ -1,0 +1,18 @@
+.z-combobox-button, .z-bandbox-button, .z-datebox-button, .z-timebox-button, .z-spinner-button, .z-doublespinner-button {
+    display: inline-block;
+    width: 47px;
+    height: 47px;
+    border: 1px solid #e3e3e3;
+    background: #fff;
+    vertical-align: middle;
+    cursor: pointer;
+    overflow: hidden;
+}
+.z-combobox-icon, .z-bandbox-icon, .z-datebox-icon, .z-timebox-icon, .z-spinner-icon, .z-doublespinner-icon {
+    font-size: 30px;
+    color: #555;
+    display: block !important;
+    width: 45px;
+    line-height: 44px;
+    text-align: center;
+}

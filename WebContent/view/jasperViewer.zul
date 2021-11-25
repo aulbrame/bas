@@ -1,0 +1,11 @@
+<?page title="Bukti Potong eSPT"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<zk>
+<window border="none" height="100%" width="100%"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('com.sai.espt.viewmodel.JasperViewerVm')">
+	
+	<jasperreport id="report" height="100%" width="100%" />
+	
+</window>
+</zk>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<?page title="eSPT" contentType="text/html;charset=UTF-8"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/images/app_icon.ico" ?>
+<?link rel="stylesheet" type="text/css"	href="/css/ddp.css" ?>
+<?link rel="stylesheet" type="text/css"	href="/bootstrap/v3/bootstrap/css/bootstrap.css" ?>
+<?link rel="stylesheet" type="text/css"	href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500" ?>
+
+<?link rel="stylesheet" type="text/css"	href="assets/bootstrap/css/bootstrap.min.css" ?>
+<?link rel="stylesheet" type="text/css"	href="assets/font-awesome/css/font-awesome.min.css" ?>
+<?link rel="stylesheet" type="text/css"	href="assets/css/form-elements.css" ?>
+<?link rel="stylesheet" type="text/css"	href="assets/css/style.css" ?>
+
+<!-- Favicon and touch icons -->
+<?link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png" ?>
+<?link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png" ?>
+<?link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png" ?>
+<?link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png" ?>
+
+<zk xmlns:w="client" xmlns:n="native">
+	<script src="/bootstrap/v3/zk/js/button-bs.js" />
+	<zscript>
+	com.sai.espt.domain.UserNpwp oUser = (com.sai.espt.domain.UserNpwp) session
+			.getAttribute("oUser");
+	if (oUser != null)
+		Executions.sendRedirect("/view/index.zul");	
+	else{
+		
+		Executions.sendRedirect("/login.zul");	
+	}
+	</zscript>
+        
+</zk>

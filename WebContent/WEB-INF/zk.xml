@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+	Created by ZK Studio
+-->
+
+<zk>
+	<device-config>
+		<device-type>ajax</device-type>
+		<timeout-uri>/timeout.zul</timeout-uri><!-- An empty URL can cause the browser to reload the same URL -->
+	</device-config>
+	
+	<preference>
+		<name>org.zkoss.zk.ui.WebApp.name</name>
+		<value>eSPT21</value>
+	</preference>
+	
+	<listener>
+		<listener-class>com.sai.utils.db.HibernateListeners</listener-class>		
+	</listener>
+	
+	<library-property>
+		<name>org.zkoss.theme.preferred</name>
+		<value>atlantic</value>
+	</library-property>
+	
+	<library-property>
+		<name>org.zkoss.zul.Paging.mold</name>
+		<value>os</value>
+	</library-property>
+</zk>

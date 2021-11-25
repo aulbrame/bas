@@ -1,0 +1,80 @@
+<?page title="Ubah Password eSPT"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
+<?link rel="shortcut icon" type="image/x-icon" href="/images/app_icon.ico" ?>
+<?link rel="stylesheet" type="text/css"	href="/css/ddp.css" ?>
+<?link rel="stylesheet" type="text/css"	href="/css/style.css" ?>
+<?link rel="stylesheet" type="text/css"	href="/bootstrap/v3/bootstrap/css/bootstrap.css" ?>
+<zk xmlns:w="client" xmlns:n="native">
+	<borderlayout width="100%" height="100%" 
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('com.sai.espt.viewmodel.ChangePassGATrxVm')"
+		validationMessages="@id('vmsgs')">
+		<north border="none" sclass="blnorth">
+			<div>				
+				<include src="/view/header.zul" />	
+			</div>
+		</north>
+		
+		<west border="none">
+			<div sclass="blwest"></div>
+		</west>
+		
+		<center border="none">
+			<div align="center" sclass="jumbotron" width="100%" height="100%" style="overflow: auto;background:#13b6ec;">
+				<separator />
+				<n:h3 align="center">${labels.changePass.title.main}</n:h3>
+				<div align="center">
+					<groupbox width="400px" mold="3d"
+						form="@id('e') @load(vm) @save(vm, before='save') ">
+						<caption label="Edit" image="/images/lock.png" />
+						<grid>
+							<columns>
+								<column width="40%" />
+								<column width="60%" />
+							</columns>
+							<rows>
+								<row>
+									<label value="Password Lama" />
+									<vbox>
+										<textbox id="compFocs" cols="20" maxlength="20" type="password" value="@bind(e.oldPass)" focus="true" />
+									</vbox>
+								</row>
+								<row>
+									<label value="Password Baru" />
+									<vbox>
+										<textbox cols="20" maxlength="20" type="password" value="@bind(e.newPass)" />
+									</vbox>
+								</row>
+								<row>
+									<label value="Konfirmasi Password Baru" />
+									<vbox>
+										<textbox cols="20" maxlength="20" type="password" value="@bind(e.confirmNewPass)" />
+									</vbox>
+								</row>
+							</rows>
+							<foot width="100%">
+								<footer />
+								<footer width="100%">
+									<hlayout>
+										<button class="btn btn-default btn-sm" label="Save" onClick="@command('save')" />
+									</hlayout>
+								</footer>
+							</foot>
+						</grid>
+					</groupbox>
+				</div>
+				
+				<separator />
+				<div id="divBulan" width="400px" class="">
+					<n:h4>
+					<n:span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></n:span>
+						<n:span class="sr-only">Error:</n:span>
+						<label id="lblNotif"></label>
+					</n:h4>
+				</div>
+			</div>
+		</center>
+	
+	</borderlayout>
+
+</zk>

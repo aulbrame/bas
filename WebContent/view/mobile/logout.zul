@@ -1,0 +1,30 @@
+<?page title="Logout eSPT" contentType="text/html;charset=UTF-8"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/images/app_icon.ico" ?>
+<?link rel="stylesheet" type="text/css"	href="/css/ddp.css" ?>
+<?link rel="stylesheet" type="text/css"	href="/bootstrap/v3/bootstrap/css/bootstrap.css" ?>
+<zk xmlns:w="client" xmlns:n="native">
+	<script src="/bootstrap/v3/zk/js/button-bs.js" />	
+	<window border="none" mode="overlapped" position="center"
+		width="100%" height="100%" sclass="bgchild">
+		<separator />
+		<div sclass="jumbotron">
+			<n:p>
+				<n:h6>You are logged out from ${desktop.webApp.appName}.</n:h6>
+			</n:p>
+			<n:p><n:h6>Thank You for using this application.</n:h6></n:p>
+			<n:p>
+				<n:h6>Please log in to using this application again.</n:h6>
+				<n:h4><n:a class="btn btn-primary btn-lg"
+					href="/espt21/login_mobile.zul" role="button">
+					Log In
+				</n:a></n:h4>
+			</n:p>
+		</div>
+	</window>
+	
+        <!-- Javascript -->
+        <script src="assets/js/jquery-1.11.1.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery.backstretch.min.js"></script>
+        <script src="assets/js/scripts.js"></script>
+</zk>

@@ -1,0 +1,33 @@
+<?page title="Timeout eSPT" contentType="text/html;charset=UTF-8"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/images/app_icon.ico" ?>
+<?link rel="stylesheet" type="text/css"	href="/css/ddp.css" ?>
+<?link rel="stylesheet" type="text/css"	href="/bootstrap/v3/bootstrap/css/bootstrap.css" ?>
+<zk xmlns:w="client" xmlns:n="native">
+	<script src="/bootstrap/v3/zk/js/button-bs.js" />	
+	
+	<window width="800px" height="250px" border="none" mode="overlapped"
+		position="center" sclass="bgchild">
+		<script src="/bootstrap/v3/zk/js/button-bs.js" />
+		<separator />
+		<div sclass="jumbotron">
+			<n:p>
+				The page or component you request is no longer
+				available. This is normally caused by timeout, opening
+				too many Web pages, or rebooting the server.
+			</n:p>
+			<n:p>
+				Please log in to continue.
+				<n:a class="btn btn-primary btn-lg"
+					href="/espt21" role="button">
+					Login
+				</n:a>
+			</n:p>
+		</div>		
+	</window>
+	
+        <!-- Javascript -->
+        <script src="assets/js/jquery-1.11.1.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery.backstretch.min.js"></script>
+        <script src="assets/js/scripts.js"></script>
+</zk>
