@@ -1,4 +1,4 @@
-package com.sai.espt.viewmodel;
+package com.sai.bas.viewmodel;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -12,12 +12,12 @@ import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.Window;
 
-import com.sai.espt.dao.UserNpwpDAO;
+import com.sai.bas.dao.AppUserDAO;
 import com.sai.utils.db.StoreHibernateUtil;
 
 public class HeaderVm {
 
-	private UserNpwpDAO oDao = new UserNpwpDAO();
+	private AppUserDAO oDao = new AppUserDAO();
 	private org.zkoss.zk.ui.Session zkSession = Sessions.getCurrent();
 		
 	@AfterCompose
@@ -34,7 +34,7 @@ public class HeaderVm {
 	
 	@Command
 	public void doLogout() {	
-		int lhseqno = (int) zkSession.getAttribute("lhseqno");
+		/*int lhseqno = (int) zkSession.getAttribute("lhseqno");
 		System.out.println("ini lhseqno = "+ zkSession.getAttribute("lhseqno"));
 		Session session = StoreHibernateUtil.openSession();
 		Transaction transaction = session.beginTransaction();
@@ -52,7 +52,7 @@ public class HeaderVm {
 		}	
 		if (zkSession.getAttribute("lhseqno") != null) {				
 			zkSession.removeAttribute("lhseqno");			
-		}	
+		}*/	
 		Executions.sendRedirect("/logout.zul");
 	}
 	

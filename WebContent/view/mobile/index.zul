@@ -1,4 +1,4 @@
-<?page title="Form eSPT"?>
+<?page title="Form BAS"?>
 <?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" ?>
 <?link rel="shortcut icon" type="image/x-icon" href="/images/app_icon.ico" ?>
 <?link rel="stylesheet" type="text/css"	href="/css/ddp.css" ?>

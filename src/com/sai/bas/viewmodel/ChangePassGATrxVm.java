@@ -1,4 +1,4 @@
-package com.sai.espt.viewmodel;
+package com.sai.bas.viewmodel;
 
 import java.util.Date;
 
@@ -17,16 +17,14 @@ import org.zkoss.zul.Div;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
-import com.sai.espt.dao.UserNpwpDAO;
-import com.sai.espt.domain.UserKacab;
+import com.sai.bas.dao.AppUserDAO;
 import com.sai.utils.db.StoreHibernateUtil;
 
 public class ChangePassGATrxVm {	
 	org.zkoss.zk.ui.Session zkSession = Sessions.getCurrent();	
 	Session session;
 	Transaction transaction;	
-	UserNpwpDAO oDao = new UserNpwpDAO();
-	private UserKacab oUser;
+	AppUserDAO oDao = new AppUserDAO();
 	private String oldPass;
 	private String newPass;
 	private String confirmNewPass;
@@ -50,17 +48,17 @@ public class ChangePassGATrxVm {
 	@Command("save")
 	@NotifyChange("*")
 	public void save() {		
-		oUser = (UserKacab) zkSession.getAttribute("oUserKacab");
+		//oUser = (UserKacab) zkSession.getAttribute("oUserKacab");
 		try {
-			UserKacab oForm = (UserKacab) oDao.getByPkGA("'"+oUser.getUklogin()+"'");
+			//UserKacab oForm = (UserKacab) oDao.getByPkGA("'"+oUser.getUklogin()+"'");
 			if(oldPass !=null || newPass !=null || confirmNewPass !=null ){
-				if (oForm.getUkpassword().equals(oldPass.trim().toUpperCase())) {
+				/*if (oForm.getUkpassword().equals(oldPass.trim().toUpperCase())) {
 					if(newPass !=null || confirmNewPass !=null){
 						if(newPass.trim().toUpperCase().equals(confirmNewPass.toUpperCase())){
 							session = StoreHibernateUtil.openSession();
 							try {					
 								transaction = session.beginTransaction();
-								oForm.setUkpassword(newPass.trim().toUpperCase());
+								//oForm.setUkpassword(newPass.trim().toUpperCase());
 								oDao.saveOrUpdateGA(session, oForm);
 								transaction.commit();	
 			 	 			   	divBulan.setClass("alert alert-success");				
@@ -94,7 +92,7 @@ public class ChangePassGATrxVm {
 	 				divBulan.setClass("alert alert-danger");
 		 		    lblNotif.setValue("Password lama salah");
  	 			   	divBulan.setVisible(true);
-				}
+				}*/
 			}else{
  				divBulan.setClass("alert alert-danger");
 	 		    lblNotif.setValue("Silahkan isi Password lama");

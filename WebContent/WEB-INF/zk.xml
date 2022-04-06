@@ -12,7 +12,7 @@
 	
 	<preference>
 		<name>org.zkoss.zk.ui.WebApp.name</name>
-		<value>eSPT21</value>
+		<value>bas</value>
 	</preference>
 	
 	<listener>

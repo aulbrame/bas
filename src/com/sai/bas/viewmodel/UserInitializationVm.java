@@ -1,4 +1,4 @@
-package com.sai.espt.viewmodel;
+package com.sai.bas.viewmodel;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -27,16 +27,13 @@ import org.zkoss.zul.Treechildren;
 import org.zkoss.zul.Treeitem;
 import org.zkoss.zul.Treerow;
 
-import com.sai.espt.dao.UserNpwpDAO;
-import com.sai.espt.domain.UserKacab;
-import com.sai.espt.domain.UserNpwp;
+import com.sai.bas.domain.AppUser;
 
 public class UserInitializationVm  {
 	
 	private org.zkoss.zk.ui.Session zkSession = Sessions.getCurrent();
 
-	private UserNpwp oUser;
-	private UserKacab oUserKacab;
+	private AppUser oUser;
 
 	/*private String filtTrxDate;
 	private ListModelList<String> listBulan;
@@ -78,9 +75,7 @@ public class UserInitializationVm  {
 		}*/
 		try {			
 			if(oUser!=null)
-			oUser = (UserNpwp) zkSession.getAttribute("oUser");
-			if(oUserKacab!=null)
-			oUserKacab = (UserKacab) zkSession.getAttribute("oUser");
+			oUser = (AppUser) zkSession.getAttribute("oUser");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

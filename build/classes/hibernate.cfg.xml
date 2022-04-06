@@ -5,9 +5,9 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-		<property name="hibernate.connection.url">jdbc:sqlserver://172.254.0.26:1433;databaseName=ESPT</property>
+		<property name="hibernate.connection.url">jdbc:sqlserver://localhost\SQLSAI;databaseName=SQLmargin</property>
 		<property name="hibernate.connection.username">sa</property>
-		<property name="connection.password">masterkey</property>  		
+		<property name="connection.password">Sapphire02</property>  		
 		
 		<property name="hibernate.jdbc.batch_size">20</property> 
 		<property name="hibernate.cache.use_second_level_cache">false</property>
@@ -30,12 +30,14 @@
 		<property name="show_sql">true</property>
 		<property name="use_sql_comments">false</property>
 		
-		<mapping class="com.sai.espt.domain.BpjsData" />
+		<mapping class="com.sai.bas.domain.AppUser" /><mapping class="com.sai.bas.domain.AppointmentSchedule"/>
+
+		<!-- <mapping class="com.sai.espt.domain.BpjsData" />
 		<mapping class="com.sai.espt.domain.BpjsDataPK" />
-		<mapping class="com.sai.espt.domain.Branch" /><!-- 
+		<mapping class="com.sai.espt.domain.Branch" />
 		<mapping class="com.sai.espt.domain.DownloadHistory" /> 
 		<mapping class="com.sai.espt.domain.KacabEmail" /> 
-		<mapping class="com.sai.espt.domain.PphData" />-->
+		<mapping class="com.sai.espt.domain.PphData" />
 		<mapping class="com.sai.espt.domain.Signature" />
 		<mapping class="com.sai.espt.domain.SptAkhir" />
 		<mapping class="com.sai.espt.domain.UserNpwp" />
@@ -43,7 +45,7 @@
 		<mapping class="com.sai.espt.dominc.DownHisto" />
 		<mapping class="com.sai.espt.dominc.LogHistory" />
 		<mapping class="com.sai.espt.dominc.Vbroker" />
-		<mapping class="com.sai.espt.dominc.vw_databroker" /><!-- 
+		<mapping class="com.sai.espt.dominc.vw_databroker" />
 		<mapping class="com.sai.espt.domain.Vw_GetDate" />
 		<mapping class="com.sai.espt.domain.Vw_NEWID" /> -->
 				

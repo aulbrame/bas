@@ -1,4 +1,4 @@
-package com.sai.espt.viewmodel;
+package com.sai.bas.viewmodel;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -27,19 +27,12 @@ import org.zkoss.zul.Treechildren;
 import org.zkoss.zul.Treeitem;
 import org.zkoss.zul.Treerow;
 
-import com.sai.espt.dao.UserNpwpDAO;
-import com.sai.espt.domain.UserKacab;
-import com.sai.espt.domain.UserNpwp;
+import com.sai.bas.dao.AppUserDAO;
+import com.sai.bas.domain.AppUser;
 
 public class UserInitializationGAVm  {
 	
 	private org.zkoss.zk.ui.Session zkSession = Sessions.getCurrent();
-
-	private UserKacab oUserKacab;
-
-	/*private String filtTrxDate;
-	private ListModelList<String> listBulan;
-	private Map<String, Integer> mMonthIndex;*/
 	
 	@Wire
 	private Combobox cbTanggal;
@@ -75,36 +68,11 @@ public class UserInitializationGAVm  {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}*/
-		try {			
-			oUserKacab = (UserKacab) zkSession.getAttribute("oUser");
+		try {		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
-	/*public String getFiltTrxDate() {
-		return filtTrxDate;
-	}
-
-	public void setFiltTrxDate(String filtTrxDate) {
-		this.filtTrxDate = filtTrxDate;
-	}
-
-	public ListModelList<String> getListBulan() {
-		return listBulan;
-	}
-
-	public void setListBulan(ListModelList<String> listBulan) {
-		this.listBulan = listBulan;
-	}
-
-	public Map<String, Integer> getmMonthIndex() {
-		return mMonthIndex;
-	}
-
-	public void setmMonthIndex(Map<String, Integer> mMonthIndex) {
-		this.mMonthIndex = mMonthIndex;
-	}*/
 
 	public Combobox getCbTanggal() {
 		return cbTanggal;

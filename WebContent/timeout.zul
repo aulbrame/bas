@@ -1,4 +1,4 @@
-<?page title="Timeout eSPT" contentType="text/html;charset=UTF-8"?>
+<?page title="Timeout BAS" contentType="text/html;charset=UTF-8"?>
 <?link rel="shortcut icon" type="image/x-icon" href="/images/app_icon.ico" ?>
 <?link rel="stylesheet" type="text/css"	href="/css/ddp.css" ?>
 <?link rel="stylesheet" type="text/css"	href="/bootstrap/v3/bootstrap/css/bootstrap.css" ?>
@@ -18,7 +18,7 @@
 			<n:p>
 				Please log in to continue.
 				<n:a class="btn btn-primary btn-lg"
-					href="/espt21" role="button">
+					href="/bas" role="button">
 					Login
 				</n:a>
 			</n:p>

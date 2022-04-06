@@ -1,4 +1,4 @@
-package com.sai.espt.domain;
+package com.sai.bas.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;

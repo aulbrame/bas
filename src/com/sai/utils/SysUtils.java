@@ -15,7 +15,7 @@ import org.zkoss.zk.ui.Executions;
 
 public class SysUtils {
 	
-	public static final int PAGESIZE = 20;
+	public static final int PAGESIZE = 1;
 	public static final int MODELSIZE = 1000;
 	public static final int IDPROCS_INSERT = 0;
 	public static final int IDPROCS_UPDATE = 1;

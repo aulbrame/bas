@@ -1,4 +1,4 @@
-package com.sai.espt.viewmodel;
+package com.sai.bas.viewmodel;
 
 import java.util.Date;
 
@@ -17,16 +17,16 @@ import org.zkoss.zul.Div;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Textbox;
 
-import com.sai.espt.dao.UserNpwpDAO;
-import com.sai.espt.domain.UserNpwp;
+import com.sai.bas.dao.AppUserDAO;
+import com.sai.bas.domain.AppUser;
 import com.sai.utils.db.StoreHibernateUtil;
 
 public class ChangePassTrxVm {	
 	org.zkoss.zk.ui.Session zkSession = Sessions.getCurrent();	
 	Session session;
 	Transaction transaction;	
-	UserNpwpDAO oDao = new UserNpwpDAO();
-	private UserNpwp oUser;
+	AppUserDAO oDao = new AppUserDAO();
+	private AppUser oUser;
 	private String oldPass;
 	private String newPass;
 	private String confirmNewPass;
@@ -50,17 +50,17 @@ public class ChangePassTrxVm {
 	@Command("save")
 	@NotifyChange("*")
 	public void save() {		
-		oUser = (UserNpwp) zkSession.getAttribute("oUser");
+		oUser = (AppUser) zkSession.getAttribute("oUser");
 		try {
-			UserNpwp oForm = (UserNpwp) oDao.getByPk("'"+oUser.getUnlogin()+"'");
+			AppUser oForm = (AppUser) oDao.getByPk("'"+oUser.getappuserpassword()+"'");
 			if(oldPass !=null || newPass !=null || confirmNewPass !=null ){
-				if (oForm.getUnpassword().equals(oldPass.trim().toUpperCase())) {
+				if (oForm.getappuserprivatepassword().equals(oldPass.trim().toUpperCase())) {
 					if(newPass !=null || confirmNewPass !=null){
 						if(newPass.trim().toUpperCase().equals(confirmNewPass.toUpperCase())){
 							session = StoreHibernateUtil.openSession();
 							try {					
 								transaction = session.beginTransaction();
-								oForm.setUnpassword(newPass.trim().toUpperCase());
+								oForm.setappuserpassword(newPass.trim().toUpperCase());
 								oDao.saveOrUpdate(session, oForm);
 								transaction.commit();	
 			 	 			   	divBulan.setClass("alert alert-success");				

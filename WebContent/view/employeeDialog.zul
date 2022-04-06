@@ -1,0 +1,37 @@
+<window id="modalDialog" title="Search Employee" border="normal" apply="com.sai.bas.viewmodel.DoAppointmentSchedule" width="450px" position="center,center" closable="true" action="show: slideDown;hide: slideUp">
+    <groupbox mold="3d" width="100%" style="padding:0px 0px 0px 0px;">
+				<caption label="Search" image="/images/search1.png" />
+				<grid style="padding:0px 0px 0px 0px;">
+					<columns>
+						<column width="50px" align="left" />
+						<column width="100px" align="left" />
+						<column width="100%" align="left" />
+					</columns>
+					<rows>
+						<row>
+							<label value="" />
+							<label value="Name" />
+							<textbox id="nameEmployee" value="" readonly="false"/>
+						</row>
+						<row>
+							<label value="" />
+							<label value="Branch" />
+							<combobox id="BranchEmployee" model="@load(vm.listBranchEmployee)" autocomplete="true" >
+							     <template name="model">
+							    	<comboitem label="${each}" />
+							     </template>
+						    </combobox>
+						</row>
+					</rows>
+					<foot width="100%">
+						<footer />
+						<footer />
+						<footer width="100%">
+							<hlayout>
+								<button id="btnSearch" class="btn btn-default btn-sm" label="Search" onClick="@command('doSearchEmployee')" />
+							</hlayout>
+						</footer>
+					</foot>
+				</grid>
+			</groupbox>
+</window>

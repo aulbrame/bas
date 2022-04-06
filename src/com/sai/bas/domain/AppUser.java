@@ -1,4 +1,4 @@
-package com.sai.espt.domain;
+package com.sai.bas.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -10,92 +10,92 @@ import java.sql.Timestamp;
  * 
  */
 @Entity
-@NamedQuery(name="UserNpwp.findAll", query="SELECT u FROM UserNpwp u")
-public class UserNpwp implements Serializable {
+@NamedQuery(name="AppUser.findAll", query="SELECT u FROM AppUser u")
+public class AppUser implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private String unidktp;
+	private String appid;
 
-	private Timestamp createdate;
+	private Timestamp appuserexpired;
 
-	private String unemail;
+	private String appuserid;
 
-	private String unkodecab;
+	private String appusername;
 
-	private String unlogin;
+	private String appuserpassword;
 
-	private String unnama;
+	private String appuserauthority;
 
-	private String unpassword;
+	private String appuserprivatepassword;
 
-	private String ununiqid;
+	private String appemailoffice;
 
-	public UserNpwp() {
+	public AppUser() {
 	}
 
-	public String getUnidktp() {
-		return this.unidktp;
+	public String getUappid() {
+		return this.appid;
 	}
 
-	public void setUnidktp(String unidktp) {
-		this.unidktp = unidktp;
+	public void setUappid(String uappid) {
+		this.appid = uappid;
 	}
 
-	public Timestamp getCreatedate() {
-		return this.createdate;
+	public Timestamp getAppUserExpired() {
+		return this.appuserexpired;
 	}
 
-	public void setCreatedate(Timestamp createdate) {
-		this.createdate = createdate;
+	public void setAppUserExpired(Timestamp appuserexpired) {
+		this.appuserexpired = appuserexpired;
 	}
 
-	public String getUnemail() {
-		return this.unemail;
+	public String getappuserid() {
+		return this.appuserid;
 	}
 
-	public void setUnemail(String unemail) {
-		this.unemail = unemail;
+	public void setappuserid(String appuserid) {
+		this.appuserid = appuserid;
 	}
 
-	public String getUnkodecab() {
-		return this.unkodecab;
+	public String getappusername() {
+		return this.appusername;
 	}
 
-	public void setUnkodecab(String unkodecab) {
-		this.unkodecab = unkodecab;
+	public void setappusername(String appusername) {
+		this.appusername = appusername;
 	}
 
-	public String getUnlogin() {
-		return this.unlogin;
+	public String getappuserpassword() {
+		return this.appuserpassword;
 	}
 
-	public void setUnlogin(String unlogin) {
-		this.unlogin = unlogin;
+	public void setappuserpassword(String appuserpassword) {
+		this.appuserpassword = appuserpassword;
 	}
 
-	public String getUnnama() {
-		return this.unnama;
+	public String getuserauthority() {
+		return this.appuserauthority;
 	}
 
-	public void setUnnama(String unnama) {
-		this.unnama = unnama;
+	public void setuserauthority(String userauthority) {
+		this.appuserauthority = userauthority;
 	}
 
-	public String getUnpassword() {
-		return this.unpassword;
+	public String getappuserprivatepassword() {
+		return this.appuserprivatepassword;
 	}
 
-	public void setUnpassword(String unpassword) {
-		this.unpassword = unpassword;
+	public void setappuserprivatepassword(String appuserprivatepassword) {
+		this.appuserprivatepassword = appuserprivatepassword;
 	}
 
-	public String getUnuniqid() {
-		return this.ununiqid;
+	public String getappemailoffice() {
+		return this.appemailoffice;
 	}
 
-	public void setUnuniqid(String ununiqid) {
-		this.ununiqid = ununiqid;
+	public void setappemailoffice(String appemailoffice) {
+		this.appemailoffice = appemailoffice;
 	}
 
 }

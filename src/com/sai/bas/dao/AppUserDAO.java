@@ -1,63 +1,26 @@
-package com.sai.espt.dao;
+package com.sai.bas.dao;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
-import org.hibernate.type.FloatType;
 
-import com.sai.espt.domain.UserKacab;
-import com.sai.espt.domain.UserNpwp;
-import com.sai.espt.dominc.vw_databroker;
-import com.sai.utils.SysUtils;
+import com.sai.bas.domain.AppUser;
 import com.sai.utils.db.StoreHibernateUtil;
 
-public class UserNpwpDAO {
+public class AppUserDAO {
 	
 	private Session session;
 
-	public UserNpwp login(Session session, String loginid) throws HibernateException, Exception {
-		UserNpwp oForm = null;
+	public AppUser login(Session session, String loginid) throws HibernateException, Exception {
+		AppUser oForm = null;
 		if (loginid != null) loginid = loginid.trim().toUpperCase();
-		oForm = (UserNpwp) session.createQuery("from UserNpwp where unlogin = '" + loginid + "'").uniqueResult();
+		oForm = (AppUser) session.createQuery("from AppUser where appuserid = '" + loginid + "'").uniqueResult();
 		return oForm;
-	}
-
-	public UserKacab loginKacab(Session session, String loginid) throws HibernateException, Exception {
-		UserKacab oForm = null;
-		if (loginid != null) loginid = loginid.trim().toUpperCase();
-		oForm = (UserKacab) session.createQuery("from UserKacab where uklogin = '" + loginid + "'").uniqueResult();
-		return oForm;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<vw_databroker> listPaging(int first, int second, String filter, String orderby, int totalsize) throws Exception {		
-    	List<vw_databroker> oList = null;
-    	if (filter == null || "".equals(filter))
-			filter = "0 = 0";
-    	System.out.println("totalsize = "+totalsize);
-    	session = StoreHibernateUtil.openSession();
-    	int total = Integer.parseInt((String) session.createSQLQuery("select count(*) from dbo.vw_databroker (nolock)"
-				+ "where " + filter).uniqueResult().toString());
-    	if(second>total){
-    		second = total;
-    		first = second - first;
-    	}else{
-    		first = SysUtils.PAGESIZE;
-    	}
-    	oList = session.createSQLQuery("select TOP " + first + " * from (SELECT TOP " + second + " * FROM dbo.vw_databroker (nolock) where " + filter +" ORDER BY unnama ASC) a " +
-    			"order by unnama DESC  "
-				//+ "where " + filter + " order by " + orderby + " limit " + second +" offset " + first)
-				).addEntity(vw_databroker.class).list();		
-
-		session.close();
-        return oList;
-    }	
+	}	
 	
 	@SuppressWarnings("unchecked")
 	public List<Object> getMac() throws Exception {	
@@ -82,8 +45,8 @@ public class UserNpwpDAO {
     }
 	
 	@SuppressWarnings("unchecked")
-	public List<UserNpwp> listByFilter(String filter, String orderby) throws Exception {		
-    	List<UserNpwp> oList = null;
+	public List<AppUser> listByFilter(String filter, String orderby) throws Exception {		
+    	List<AppUser> oList = null;
     	if (filter == null || "".equals(filter))
 			filter = "0 = 0";
     	session = StoreHibernateUtil.openSession();
@@ -92,9 +55,9 @@ public class UserNpwpDAO {
         return oList;
     }	
 	
-	public UserNpwp findByPk(Integer pk) throws Exception {
+	public AppUser findByPk(Integer pk) throws Exception {
 		session = StoreHibernateUtil.openSession();
-		UserNpwp oForm = (UserNpwp) session.createQuery("from UserNpwp where unidktp = " + pk).uniqueResult();
+		AppUser oForm = (AppUser) session.createQuery("from UserNpwp where unidktp = " + pk).uniqueResult();
 		session.close();
 		return oForm;
 	}
@@ -120,15 +83,9 @@ public class UserNpwpDAO {
         return count;
     }
 
-	public UserNpwp getByPk(String pk) throws Exception {
+	public AppUser getByPk(String pk) throws Exception {
 		session = StoreHibernateUtil.openSession();
-		UserNpwp oForm = (UserNpwp) session.createQuery("from UserNpwp where unlogin = " + pk).uniqueResult();
-		session.close();
-		return oForm;
-	}
-	public UserKacab getByPkGA(String pk) throws Exception {
-		session = StoreHibernateUtil.openSession();
-		UserKacab oForm = (UserKacab) session.createQuery("from UserKacab where uklogin = " + pk).uniqueResult();
+		AppUser oForm = (AppUser) session.createQuery("from AppUser where unlogin = " + pk).uniqueResult();
 		session.close();
 		return oForm;
 	}
@@ -154,14 +111,11 @@ public class UserNpwpDAO {
 		query.executeUpdate();
 	}
 	
-	public void delete(Session session, UserNpwp oForm) throws HibernateException, Exception {
+	public void delete(Session session, AppUser oForm) throws HibernateException, Exception {
 		session.delete(oForm);    
     }
 
-	public void saveOrUpdate(Session sessionLoc, UserNpwp oForm) throws HibernateException, Exception {
-		sessionLoc.saveOrUpdate(oForm);
-	}
-	public void saveOrUpdateGA(Session sessionLoc, UserKacab oForm) throws HibernateException, Exception {
+	public void saveOrUpdate(Session sessionLoc, AppUser oForm) throws HibernateException, Exception {
 		sessionLoc.saveOrUpdate(oForm);
 	}
 

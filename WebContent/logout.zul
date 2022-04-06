@@ -1,4 +1,4 @@
-<?page title="Logout eSPT" contentType="text/html;charset=UTF-8"?>
+<?page title="Logout BAS" contentType="text/html;charset=UTF-8"?>
 <?link rel="shortcut icon" type="image/x-icon" href="/images/app_icon.ico" ?>
 <?link rel="stylesheet" type="text/css"	href="/css/ddp.css" ?>
 <?link rel="stylesheet" type="text/css"	href="/bootstrap/v3/bootstrap/css/bootstrap.css" ?>
@@ -15,7 +15,7 @@
 			<n:p>
 				Please log in to using this application again.
 				<n:a class="btn btn-primary btn-lg"
-					href="/espt21" role="button">
+					href="/bas" role="button">
 					Log In
 				</n:a>
 			</n:p>
