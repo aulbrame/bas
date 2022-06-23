@@ -73,8 +73,6 @@ public class AppUserDAO {
 
 	public int countKey() throws Exception {
 		int count = 0;
-		/*if (filter == null || "".equals(filter) )
-			filter = "0 = 0";*/
 		session = StoreHibernateUtil.openSession();
        	count = Integer.parseInt((String) session.createSQLQuery(
        			"select isnull(max(lhseqno),0) + 1" +

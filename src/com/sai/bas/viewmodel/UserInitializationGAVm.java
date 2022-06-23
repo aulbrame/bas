@@ -42,32 +42,6 @@ public class UserInitializationGAVm  {
 	@AfterCompose
 	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
 		Selectors.wireComponents(view, this, false);
-		/*List<String> listMonth = new ArrayList<>();
-		mMonthIndex = new HashMap<>();
-		String[] months = new DateFormatSymbols().getMonths();
-	    for (int i = 0; i < months.length; i++) {
-	      if(i == 12) break;
-	      String month = months[i];
-	      listMonth.add(month);
-	      mMonthIndex.put(month, (i+1));
-	      System.out.println("month = " + month);
-	    }
-	    try {
-			listBulan = new ListModelList<String>(listMonth);
-			if(cbTanggal!=null){
-				cbTanggal.setModel(listBulan);			
-				cbTanggal.setItemRenderer(new ComboitemRenderer<String>() {
-	
-					@Override
-					public void render(Comboitem item, String data, int index) throws Exception {
-						item.setLabel(data);
-						item.setId(""+index);
-					}
-				});
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
 		try {		
 		} catch (Exception e) {
 			e.printStackTrace();

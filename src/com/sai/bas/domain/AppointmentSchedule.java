@@ -108,6 +108,18 @@ public class AppointmentSchedule implements Serializable{
 	}
 	
 	public String getAPSCType() {
+		if(APSCType.equals("NAP")) 
+			APSCType = "New Appointment";
+		else if(APSCType.equals("FLU")) 
+			APSCType = "Follow Up";
+		else if(APSCType.equals("CLO")) 
+			APSCType = "Closing";
+		else if(APSCType.equals("TUP")) 
+			APSCType= "Top Up";
+		else if(APSCType.equals("EDU")) 
+			APSCType = "Education";
+		else if(APSCType.equals("VST")) 
+			APSCType= "Visiting";
 		return APSCType;
 	}
 	
@@ -116,14 +128,30 @@ public class AppointmentSchedule implements Serializable{
 	}
 	
 	public String getAPSCClientMeets() {
+		if(APSCClientMeets.equals("MEET"))
+			APSCClientMeets = "Outside Office";
+		else if(APSCClientMeets.equals("COT"))
+			APSCClientMeets = "Come To Office";
+		else if(APSCClientMeets.equals("OTS"))
+			APSCClientMeets = "On The Spot";
 		return APSCClientMeets;
 	}
 	
 	public void setAPSCClientMeets(String APSCClientMeets) {
+		if(APSCClientMeets.equals("Outside Office"))
+			APSCClientMeets = "MEET";
+		else if(APSCClientMeets.equals("Come To Office"))
+			APSCClientMeets = "COT";
+		else if(APSCClientMeets.equals("On The Spot"))
+			APSCClientMeets = "OTS";
 		this.APSCClientMeets = APSCClientMeets;
 	}
 	
 	public String getAPSCClientStatus() {
+		if(APSCClientStatus.equals("CLN"))
+			APSCClientStatus = "Calon Nasabah";
+		else if(APSCClientStatus.equals("NSB"))
+			APSCClientStatus = "Nasabah";
 		return APSCClientStatus;
 	}
 	
@@ -172,6 +200,14 @@ public class AppointmentSchedule implements Serializable{
 	}
 	
 	public String getAPSCStatus() {
+		if(APSCStatus.equals("DN"))
+			APSCStatus = "Done";
+		else if(APSCStatus.equals("CC"))
+			APSCStatus = "Cancel";
+		else if(APSCStatus.equals("UN"))
+			APSCStatus = "Unknown";
+		else if(APSCStatus.equals("RS"))
+			APSCStatus = "Reschedule";
 		return APSCStatus;
 	}
 	

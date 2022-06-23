@@ -15,6 +15,7 @@ import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 
 import com.sai.bas.dao.AppUserDAO;
@@ -35,15 +36,15 @@ public class ChangePassTrxVm {
 	@Wire("#compFocs")
 	Textbox compFocs;
 	
-	@Wire
-	private Label lblNotif;	
-	@Wire
-	private Div divBulan;
+	//@Wire
+	//private Label lblNotif;	
+	//@Wire
+	//private Div divBulan;
 	
 	@AfterCompose
 	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
 		Selectors.wireComponents(view, this, false);
-		divBulan.setVisible(false);
+		//divBulan.setVisible(false);
 		compFocs.setFocus(true);
 	}
 	
@@ -62,10 +63,11 @@ public class ChangePassTrxVm {
 								transaction = session.beginTransaction();
 								oForm.setappuserpassword(newPass.trim().toUpperCase());
 								oDao.saveOrUpdate(session, oForm);
-								transaction.commit();	
-			 	 			   	divBulan.setClass("alert alert-success");				
-					 		    lblNotif.setValue("Password Berhasil diubah");
-			 	 			   	divBulan.setVisible(true);
+								transaction.commit();
+								Messagebox.show("Password Berhasil diubah");
+			 	 			   	//divBulan.setClass("alert alert-success");				
+					 		    //lblNotif.setValue("Password Berhasil diubah");
+			 	 			   	//divBulan.setVisible(true);
 			 	 			   	
 								oldPass = "";
 								newPass = "";
@@ -79,26 +81,28 @@ public class ChangePassTrxVm {
 								session.close();
 							}
 						}else{
-							
-		 	 				divBulan.setClass("alert alert-danger");
-				 		    lblNotif.setValue("Password tidak sama");
-		 	 			   	divBulan.setVisible(true);
+							Messagebox.show("Password tidak sama");
+		 	 				//divBulan.setClass("alert alert-danger");
+				 		    //lblNotif.setValue("Password tidak sama");
+		 	 			   //	divBulan.setVisible(true);
 						}
 				}else{
-					divBulan.setClass("alert alert-danger");
-		 		    lblNotif.setValue("Password tidak sama");
- 	 			   	divBulan.setVisible(true);
+					Messagebox.show("Password tidak sama");
+					//divBulan.setClass("alert alert-danger");
+		 		    //lblNotif.setValue("Password tidak sama");
+ 	 			   	//divBulan.setVisible(true);
 				}
 				} else {			
-
-	 				divBulan.setClass("alert alert-danger");
-		 		    lblNotif.setValue("Password lama salah");
- 	 			   	divBulan.setVisible(true);
+					Messagebox.show("Password lama salah");
+	 				//divBulan.setClass("alert alert-danger");
+		 		   //lblNotif.setValue("Password lama salah");
+ 	 			   	//divBulan.setVisible(true);
 				}
 			}else{
- 				divBulan.setClass("alert alert-danger");
-	 		    lblNotif.setValue("Silahkan isi Password lama");
-	 			divBulan.setVisible(true);
+				Messagebox.show("Silahkan isi Password lama");
+ 				//divBulan.setClass("alert alert-danger");
+	 		    //lblNotif.setValue("Silahkan isi Password lama");
+	 			//divBulan.setVisible(true);
 			}
 		} catch (Exception e) {
 			lblMessage = "Error : " + e.getMessage();

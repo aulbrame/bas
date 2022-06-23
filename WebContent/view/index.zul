@@ -88,6 +88,7 @@
 			<button id="btnNew" class="btn btn-default btn-sm" label="Create New" onClick="@command('doReset')" />
 			</div>
 			<separator />
+			<div align="left" style="padding:0px 0px 0px 175px;">
 			<groupbox mold="3d" width="700px" style="padding:0px 0px 0px 0px;">
 				<caption label="Form" />
 				<paging id="paging" autohide="true" />
@@ -111,7 +112,13 @@
 						<row>
 							<label value="" />
 							<label value="Meeting Client" />
-							<textbox id="MeetClient" value="" readonly="false"/>
+							<vbox> 
+								<combobox cols="40" id="MeetClient" autocomplete="true" >
+							    	<comboitem label="Outside Office" />
+							    	<comboitem label="Come To Office" />
+							    	<comboitem label="On The Spot" />
+						    	</combobox>
+							</vbox>
 						</row>
 						<row>
 							<label value="" />
@@ -136,11 +143,7 @@
 							<label value="" />
 							<label value="Marketing Team" />
 							<vbox> 
-								<combobox cols="40" id="marketingTeam" model="@load(vm.listMTeam)" autocomplete="true" >
-							     	<template name="model">
-							    		<comboitem label="${each}" />
-							        </template>
-						    	</combobox>
+								<combobox cols="40" id="marketingTeam" autocomplete="true" ></combobox>
 							</vbox>
 						</row>
 						<row>
@@ -153,7 +156,12 @@
 						<row>
 							<label value="" />
 							<label value="Client Status" />
-							<textbox id="CStatus" value="" readonly="false"/>
+							<vbox> 
+								<combobox cols="40" id="CStatus" autocomplete="true" >
+							    	<comboitem label="Calon Nasabah" />
+							    	<comboitem label="Nasabah" />
+						    	</combobox>
+							</vbox>
 						</row>
 						<row>
 							<label value="" />
@@ -173,7 +181,14 @@
 						<row>
 							<label value="" />
 							<label value="Appointment Status" />
-							<textbox id="AppmntStat" value="" readonly="false"/>
+							<vbox> 
+								<combobox cols="40" id="AppmntStat" autocomplete="true" >
+							    	<comboitem label="Done" />
+							    	<comboitem label="Cancel" />
+							    	<comboitem label="Unknown" />
+							    	<comboitem label="Reschedule" />
+						    	</combobox>
+							</vbox>
 						</row>
 						<row>
 							<label value="" />
@@ -193,7 +208,16 @@
 						<row>
 							<label value="" />
 							<label value="Appointment" />
-							<textbox id="appmnt" value="" readonly="false"/>
+							<vbox> 
+								<combobox cols="40" id="appmnt" autocomplete="true" >
+							    	<comboitem label="New Appointment" />
+							    	<comboitem label="Follow Up" />
+							    	<comboitem label="Closing" />
+							    	<comboitem label="Top Up" />
+							    	<comboitem label="Education" />
+							    	<comboitem label="Visiting" />
+						    	</combobox>
+							</vbox>
 						</row>
 						<row>
 							<label value="" />
@@ -229,6 +253,7 @@
 					</foot>
 				</grid>
 			</groupbox>
+			</div>
 		</div>					
 		</center>
 		<south border="none">

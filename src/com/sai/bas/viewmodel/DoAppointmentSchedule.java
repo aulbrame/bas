@@ -48,7 +48,7 @@ import org.zkoss.zul.event.PagingEvent;
 import com.sai.bas.dao.ApmntSchedDAO;
 import com.sai.bas.domain.AppUser;
 import com.sai.bas.domain.AppointmentSchedule;
-import com.sai.espt.model.AppointmentScheduledListModel;
+import com.sai.bas.model.AppointmentScheduledListModel;
 import com.sai.utils.SysUtils;
 import com.sai.utils.db.StoreHibernateUtil;
 
@@ -67,7 +67,6 @@ public class DoAppointmentSchedule extends SelectorComposer<Component>{
 	DecimalFormat decFormat = new DecimalFormat("####,###,###.##");
 	private String orderby;
 
-	private Integer filtTahun;
 	private String filtNikMarketing;
 	private String filtEmployee="";
 	private String filtTypeID;
@@ -105,7 +104,7 @@ public class DoAppointmentSchedule extends SelectorComposer<Component>{
 	@Wire
 	private Timebox timeAppointment;
 	@Wire
-	private Textbox MeetClient;
+	private Combobox MeetClient;
 	@Wire
 	private Combobox VehicleNo;
 	@Wire
@@ -115,7 +114,7 @@ public class DoAppointmentSchedule extends SelectorComposer<Component>{
 	@Wire
 	private Combobox pic;
 	@Wire
-	private Textbox CStatus;
+	private Combobox CStatus;
 	@Wire
 	private Textbox CPhone;
 	@Wire
@@ -123,7 +122,7 @@ public class DoAppointmentSchedule extends SelectorComposer<Component>{
 	@Wire
 	private Textbox AppmntPlace;
 	@Wire
-	private Textbox AppmntStat;
+	private Combobox AppmntStat;
 	@Wire
 	private Combobox capability;
 	@Wire
@@ -131,7 +130,7 @@ public class DoAppointmentSchedule extends SelectorComposer<Component>{
 	@Wire
 	private Combobox driver;
 	@Wire
-	private Textbox appmnt;
+	private Combobox appmnt;
 	@Wire
 	private Textbox accNo;
 	@Wire
@@ -197,7 +196,7 @@ public class DoAppointmentSchedule extends SelectorComposer<Component>{
 		//listVehicleNo = new ListModelList<String>();
 		//listEmployeeName = new ListModelList<String>();
 		//listPICName = new ListModelList<String>();
-		listMTeam = new ListModelList<String>(ApmntSchedDAO.getTeam(AppUserId));
+		//listMTeam = new ListModelList<String>(ApmntSchedDAO.getTeam(AppUserId));
 		
 		dateAppointment.setValue(new Date());
 		timeAppointment.setValue(new Date());
@@ -268,7 +267,7 @@ public class DoAppointmentSchedule extends SelectorComposer<Component>{
 			Messagebox.show("Branch cannot empty!.");
 		String[] branch= Branch.getValue().split("-");
 		brch = branch[0];
-		filter = "APSCDate Between '"+f.format(dateFrm)+"' and '"+f.format(dateTo_)+"' and APSCBrCode = '"+brch+"'";
+		filter = "APSCDate Between '"+f.format(dateFrm)+" 00:00:00' and '"+f.format(dateTo_)+" 23:59:59' and APSCBrCode = '"+brch+"'";
 		
 		paging.setVisible(true);
 		paging.addEventListener("onPaging", new EventListener() {
@@ -336,7 +335,7 @@ public class DoAppointmentSchedule extends SelectorComposer<Component>{
 		String team = "";
 		if(APSCEmpTeam!=null && APSCBrCode!=null) {
 			session = StoreHibernateUtil.openSession();
-			List lstTeam = session.createSQLQuery("select bmtbrcode+'/'+bmtteam+'('+bmtname+')' from BranchMarketingTeam where bmtteam='"+APSCEmpTeam+"' and bmtbrcode='"+APSCBrCode+"'").list();
+			List lstTeam = session.createSQLQuery("select bmtteam+' - '+bmtname from BranchMarketingTeam where bmtteam='"+APSCEmpTeam+"' and bmtbrcode='"+APSCBrCode+"'").list();
 			team = lstTeam.get(0).toString();
 			session.close();
 		}
@@ -362,19 +361,58 @@ public class DoAppointmentSchedule extends SelectorComposer<Component>{
 		Date dateApp = dateAppointment.getValue();
 		Date time = timeAppointment.getValue();
 		DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		
 		String MeetC = MeetClient.getValue();
+		if(MeetC.equals("Outside Office"))
+			MeetC = "MEET";
+		else if(MeetC.equals("Come To Office"))
+			MeetC = "COT";
+		else if(MeetC.equals("On The Spot"))
+			MeetC = "OTS";
+		
 		String VNo = VehicleNo.getValue();
 		
-		String Mteam = marketingTeam.getValue().substring(marketingTeam.getValue().indexOf("/")+1,marketingTeam.getValue().lastIndexOf("("));
+		//String Mteam = marketingTeam.getValue().substring(marketingTeam.getValue().indexOf("/")+1,marketingTeam.getValue().indexOf("("));
+		String[] MteamSplit = marketingTeam.getValue().split("-");
+		String Mteam = MteamSplit[0].trim();
+		
 		String ClientStatus = CStatus.getValue();
+		if(ClientStatus.equals("Calon Nasabah"))
+			ClientStatus = "CLN";
+		else if(ClientStatus.equals("Nasabah"))
+			ClientStatus = "NSB";
+		
 		String ClientPhone = CPhone.getValue();
 		String ClientName = CName.getValue();
 		String AppointmentPlc = AppmntPlace.getValue();
+		
 		String AppointmentStatus = AppmntStat.getValue();
+		if(AppointmentStatus.equals("Done"))
+			AppointmentStatus = "DN";
+		else if(AppointmentStatus.equals("Cancel"))
+			AppointmentStatus = "CC";
+		else if(AppointmentStatus.equals("Unknown"))
+			AppointmentStatus = "UN";
+		else if(AppointmentStatus.equals("Reschedule"))
+			AppointmentStatus = "RS";
 		
 		String descrip = desc.getValue();
-		String drive = driver.getValue().substring(driver.getValue().indexOf("(")+1,driver.getValue().lastIndexOf(")"));
+		String drive = driver.getValue().substring(driver.getValue().indexOf("(")+1,driver.getValue().indexOf(")"));
+		
 		String appointment = appmnt.getValue();
+		if(appointment.equals("New Appointment")) 
+			appointment = "NAP";
+		else if(appointment.equals("Follow Up")) 
+			appointment = "FLU";
+		else if(appointment.equals("Closing")) 
+			appointment = "CLO";
+		else if(appointment.equals("Top Up")) 
+			appointment= "TUP";
+		else if(appointment.equals("Education")) 
+			appointment = "EDU";
+		else if(appointment.equals("Visiting")) 
+			appointment= "VST";
+		
 		String accountNo = accNo.getValue();
 		
 		int marginAmount = mrgAmount.getValue();
@@ -392,25 +430,32 @@ public class DoAppointmentSchedule extends SelectorComposer<Component>{
 		
 		if(f.format(dateApp).equals(null))
 			Messagebox.show("Please input Date!.");
-		if(MeetC.equals(null) || MeetC.equals("")) 
+		/*if(MeetC.equals(null) || MeetC.equals("")) 
 			Messagebox.show("Please input Meeting Client!.");
 		if(VNo.equals(null) || VNo.equals("")) 
 			Messagebox.show("Please input Vehicle Nummber!.");
 		if(EmployeeName.getValue().equals(null) || EmployeeName.getValue().equals("")) 
-			Messagebox.show("Please input Marketing!.");
+			Messagebox.show("Please input Marketing!.");*/
 		if(Mteam.equals(null) || Mteam.equals("")) 
 			Messagebox.show("Please input Marketing Team!.");
-		if(pic.getValue().equals(null) || pic.getValue().equals("")) 
+		/*if(pic.getValue().equals(null) || pic.getValue().equals("")) 
 			Messagebox.show("Please input PIC!.");
 		if(ClientStatus.equals(null) || ClientStatus.equals("")) 
-			Messagebox.show("Please input PIC!.");
+			Messagebox.show("Please input PIC!.");*/
+		String Empno = null;
+		String BRCode = null;
+		String pic_ = null;
 		
-		String[] EmployeeNameSplit = EmployeeName.getValue().split("-");
-		String Empno = EmployeeNameSplit[1].trim();
-		String BRCode = Empno.substring(0, 2);
+		if(!EmployeeName.getValue().equals(null) && !EmployeeName.getValue().equals("")) {
+			String[] EmployeeNameSplit = EmployeeName.getValue().split("-");
+			Empno = EmployeeNameSplit[1].trim();
+			BRCode = Empno.substring(0, 2);
+		}
 		
-		String[] picSlip = pic.getValue().split("-");
-		String pic_ = picSlip[1].trim();
+		if(!pic.getValue().equals(null) && !pic.getValue().equals("")) {
+			String[] picSlip = pic.getValue().split("-");
+			pic_ = picSlip[1].trim();
+		}
 		
 		session = StoreHibernateUtil.openSession();
 		ApmntSchedDAO appointmentSch = new ApmntSchedDAO();
@@ -420,6 +465,7 @@ public class DoAppointmentSchedule extends SelectorComposer<Component>{
 				descrip, drive, BRCode, appointment, accountNo, interested, marginAmount, oUser.getappuserid());
 		transaction.commit();
 		refreshModel(oUser.getappuserid());
+		Messagebox.show("Success Input!");
 	}
 	
 	@Command
@@ -428,30 +474,77 @@ public class DoAppointmentSchedule extends SelectorComposer<Component>{
 		Date dateApp = dateAppointment.getValue();
 		Date time = timeAppointment.getValue();
 		DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+		
 		String MeetC = MeetClient.getValue();
+		if(MeetC.equals("Outside Office"))
+			MeetC = "MEET";
+		else if(MeetC.equals("Come To Office"))
+			MeetC = "COT";
+		else if(MeetC.equals("On The Spot"))
+			MeetC = "OTS";
+		
 		String VNo = VehicleNo.getValue();
 		
-		String Mteam = marketingTeam.getValue().substring(marketingTeam.getValue().indexOf("/")+1,marketingTeam.getValue().lastIndexOf("("));
+		//String Mteam = marketingTeam.getValue().substring(marketingTeam.getValue().indexOf("/")+1,marketingTeam.getValue().lastIndexOf("("));
+		String[] MteamSplit = marketingTeam.getValue().split("-");
+		String Mteam = MteamSplit[0].trim();
 		
 		String ClientStatus = CStatus.getValue();
+		if(ClientStatus.equals("Calon Nasabah"))
+			ClientStatus = "CLN";
+		else if(ClientStatus.equals("Nasabah"))
+			ClientStatus = "NSB";
+		
 		String ClientPhone = CPhone.getValue();
 		String ClientName = CName.getValue();
 		String AppointmentPlc = AppmntPlace.getValue();
+		
 		String AppointmentStatus = AppmntStat.getValue();
+		if(AppointmentStatus.equals("Done"))
+			AppointmentStatus = "DN";
+		else if(AppointmentStatus.equals("Cancel"))
+			AppointmentStatus = "CC";
+		else if(AppointmentStatus.equals("Unknown"))
+			AppointmentStatus = "UN";
+		else if(AppointmentStatus.equals("Reschedule"))
+			AppointmentStatus = "RS";
+		
 		String capab = capability.getValue();
 		String descrip = desc.getValue();
 		String drive = driver.getValue().substring(driver.getValue().indexOf("(")+1,driver.getValue().lastIndexOf(")"));
+		
 		String appointment = appmnt.getValue();
+		if(appointment.equals("New Appointment")) 
+			appointment = "NAP";
+		else if(appointment.equals("Follow Up")) 
+			appointment = "FLU";
+		else if(appointment.equals("Closing")) 
+			appointment = "CLO";
+		else if(appointment.equals("Top Up")) 
+			appointment= "TUP";
+		else if(appointment.equals("Education")) 
+			appointment = "EDU";
+		else if(appointment.equals("Visiting")) 
+			appointment= "VST";
+		
 		String accountNo = accNo.getValue();
 		String interested = isInterested.getValue();
 		int marginAmount = mrgAmount.getValue();
 		
-		String[] EmployeeNameSplit = EmployeeName.getValue().split("-");
-		String Empno = EmployeeNameSplit[1].trim();
-		String BRCode = Empno.substring(0, 2);
+		String Empno = null;
+		String BRCode = null;
+		String pic_ = null;
 		
-		String[] picSlip = pic.getValue().split("-");
-		String pic_ = picSlip[1].trim();
+		if(!EmployeeName.getValue().equals(null) && !EmployeeName.getValue().equals("")) {
+			String[] EmployeeNameSplit = EmployeeName.getValue().split("-");
+			Empno = EmployeeNameSplit[1].trim();
+			BRCode = Empno.substring(0, 2);
+		}
+		
+		if(!pic.getValue().equals(null) && !pic.getValue().equals("")) {
+			String[] picSlip = pic.getValue().split("-");
+			pic_ = picSlip[1].trim();
+		}
 		
 		if(interested.equals("Yes") || capab.equals("Yes")) {
 			interested = "Y";
@@ -469,6 +562,7 @@ public class DoAppointmentSchedule extends SelectorComposer<Component>{
 				ClientStatus, ClientPhone, ClientName, AppointmentPlc, AppointmentStatus, capab,
 				descrip, drive, BRCode, appointment, accountNo, interested, marginAmount, oUser.getappuserid());
 		transaction.commit();
+		Messagebox.show("Success Update!");
 		doSearch();
 	}
 	
@@ -478,130 +572,32 @@ public class DoAppointmentSchedule extends SelectorComposer<Component>{
 		paging.setVisible(false);
 		driver.getChildren().clear();
 		EmployeeName.getChildren().clear();
+		marketingTeam.getChildren().clear();
 		pic.getChildren().clear();
 		VehicleNo.getChildren().clear();
 		refreshModel(oUser.getappuserid()); 
 	}
 	
 	@Command
-	@NotifyChange({"doChangeYear","filtTypeID"})
-	public void doChangeYear(@BindingParam("year") Integer y) {
-		try {
-			//lblNotif.setValue("Batas waktu hanya 3 bulan terakhir");
-			lblNotif.setValue("Batas waktu hanya 11 bulan terakhir");
-			btnDownload.setDisabled(false);
-			filtTypeID = "---Pilih---";
-			int iMonth = mMonthIndex.get(filtEmployee);
-			int x = Calendar.getInstance().get(Calendar.YEAR) - 1;
-			int BatasBulan = Calendar.getInstance().get(Calendar.MONTH) + 2;
-			System.out.println("x + years "+x+" + "+y);
-			System.out.println("BatasBulan = "+BatasBulan);
-			/*if(iMonthMax == 1 || iMonthMax == 2 || iMonthMax == 3){
-				System.out.println("gak masuk");
-				if(x==y || y==Calendar.getInstance().get(Calendar.YEAR)){
- 	 			   	divBulan.setVisible(false);
- 	 			   	
- 					cbSetIdType.setDisabled(false);
-				}else{
- 	 			   	divBulan.setVisible(true);
- 					cbSetIdType.setDisabled(true);
-				}
-			}else{
-				System.out.println("masuk sni");
-				if(y!=Calendar.getInstance().get(Calendar.YEAR)){
-					System.out.println("lebih dalam");
- 	 			   	divBulan.setVisible(true);
- 					cbSetIdType.setDisabled(true);
-				}else{
-					System.out.println("lebih dalam else");
- 	 			   	divBulan.setVisible(false);
- 	 			   	
- 					cbSetIdType.setDisabled(false);
-				}
-			}*/
-			
- 		    
-		}catch (Exception e) {
-			e.printStackTrace();
-		}	
-
-		btnDownload.setDisabled(false);
-	}
-	
-	@Command
 	@NotifyChange({"doChangeEmployee","filtEmployee"})
 	public void doChangeEmployee(@BindingParam("employee") String x) {
+		driver.setValue("");
+		EmployeeName.setValue("");
+		pic.setValue("");
+		marketingTeam.setValue("");
+		VehicleNo.setValue("");
 		try {
-			//btnDownload.setDisabled(false);
-			//filtTypeID = "---Pilih---";
-			//int iMonth = mMonthIndex.get(x);
-			//System.out.println("iMonth : "+iMonth);
-			//listDriverName.clear();
-			//listVehicleNo.clear();
-			//listEmployeeName.clear();
-			//listPICName.clear();
-			//int iYear = filtTahun;
-			//System.out.println("filtTahun : "+filtTahun);
-			//int BatasTahun = Calendar.getInstance().get(Calendar.YEAR) - 1;
-			//int BatasBulan = Calendar.getInstance().get(Calendar.MONTH) + 2;
- 		    //listTypes.add("---Pilih---");
- 		    //lblNotif.setValue("Batas waktu hanya 11 bulan terakhir");
- 		    /*if(Calendar.getInstance().get(Calendar.MONTH) == 1){
- 		    	if(iMonth == 10 || iMonth ==11 ||iMonth ==12 ||iMonth ==1){
- 	 			   	divBulan.setVisible(false);
- 	 			   	
- 					cbSetIdType.setDisabled(false);
- 		    	}else{
- 	 			   	divBulan.setVisible(true);
- 					cbSetIdType.setDisabled(true);
- 		    	}
- 			}else if(Calendar.getInstance().get(Calendar.MONTH) == 2){
-					System.out.println("masuk 2");
- 		    	if(iMonth ==11 ||iMonth ==12 || iMonth == 1 || iMonth == 2){
- 					System.out.println("masuk sini");
- 	 			   	divBulan.setVisible(false);
- 	 			   	
- 					cbSetIdType.setDisabled(false);
- 		    	}else{
- 					System.out.println("masuk sini else");
- 	 			   	divBulan.setVisible(true);
- 					cbSetIdType.setDisabled(true);
- 		    	}
- 			}else if(Calendar.getInstance().get(Calendar.MONTH) == 3){
- 		    	if(iMonth == 3 ||iMonth == 12 || iMonth == 1 || iMonth == 2){
- 	 			   	divBulan.setVisible(false);
- 	 			   	
- 					cbSetIdType.setDisabled(false);
- 		    	}else{
- 	 			   	divBulan.setVisible(true);
- 					cbSetIdType.setDisabled(true);
- 		    	}
- 			}else{
- 				 if(iMonth<=iMonthMin){
- 				   	divBulan.setVisible(true);
- 					cbSetIdType.setDisabled(true);
- 	 			   	//lblMsgBulan.setValue("Batas waktu 3 bulan terakhir tidak bisa di unduh");
- 	 			   	//bukti potong harap disimpan dengan baik dan tidak diberikan copy
- 				}else{
- 	 			   	divBulan.setVisible(false);
- 	 			   	
- 					cbSetIdType.setDisabled(false);
- 				}
- 			}*/
-			System.out.println("count driver: "+driver.getItemCount());
-			if(driver.getItemCount()>0) {
+			if(driver.getItemCount()>0)
 				driver.getChildren().clear();
-			}
-			System.out.println("count employee: "+EmployeeName.getItemCount());
 			if(EmployeeName.getItemCount()>0) {
 				EmployeeName.getChildren().clear();
 				pic.getChildren().clear();
 			}
-			
-			if(VehicleNo.getItemCount()>0) {
+			if(marketingTeam.getItemCount()>0)
+				marketingTeam.getChildren().clear();
+			if(VehicleNo.getItemCount()>0) 
 				VehicleNo.getChildren().clear();
-			}
-			//listEmployeeName = new ListModelList<String>();
+
 			String brch = Branch.getValue();
 			if(brch.equals(""))
 				Messagebox.show("Branch cannot empty!.");
@@ -612,58 +608,28 @@ public class DoAppointmentSchedule extends SelectorComposer<Component>{
 			for(int i=0;i<listName.getSize();i++) {
 				EmployeeName.appendItem(listName.get(i));
 				pic.appendItem(listName.get(i));
-				//listEmployeeName.add(listName.get(i));
-				//listPICName.add(listName.get(i));
 			}
-			//setListEmployeeName(listEmployeeName);
-			//setListPICName(listPICName);
 			
 			listName.clear();
 			listName = new ListModelList<String>(ApmntSchedDAO.getDriverName(brch));
 			
 			for(int i=0;i<listName.getSize();i++) {
 				driver.appendItem(listName.get(i));
-				//listDriverName.add(listName.get(i));
 			}
-			//setListDriverName(listDriverName);
+			
+			listName.clear();
+			listName = new ListModelList<String>(ApmntSchedDAO.getTeam(brch));
+			
+			for(int i=0;i<listName.getSize();i++) {
+				marketingTeam.appendItem(listName.get(i));
+			}
 			
 			listName.clear();
 			listName = new ListModelList<String>(ApmntSchedDAO.getVehicleNo(brch));
 			
 			for(int i=0;i<listName.getSize();i++) {
 				VehicleNo.appendItem(listName.get(i));
-				//listVehicleNo.add(listName.get(i));
 			}
-			//setListVehicleNo(listVehicleNo);
-			/*@SuppressWarnings("rawtypes")
-			Iterator itr = listName.iterator();
-	    	while(itr.hasNext()){
-	    	   String[] obj = (String[]) itr.next();
-	    	   if(obj[0].equals(1)){
-	    		   listEmployeeName.add("Bounty Manager");
-	    		   mTypeIndex.put("Bounty Manager","BMGR");
-	    	   }
-	    	   if(obj[1].equals(1)){
-	    		   listTypes.add("Bounty New Account");
-	    		   mTypeIndex.put("Bounty New Account","BMKT");
-	    	   }
-	    	   if(obj[2].equals(1)){
-	    		   listTypes.add("Bounty WPB");
-	    		   mTypeIndex.put("Bounty WPB","BWPB");
-	    	   }
-	    	   if(obj[3].equals(1)){
-	    		   listTypes.add("Commission");
-	    		   mTypeIndex.put("Commission","COMM");
-	    	   }
-	    	   if(obj[4].equals(1)){
-	    		   listTypes.add("Payroll Closing");
-	    		   mTypeIndex.put("Payroll Closing","SCLO");
-	    	   }
-	    	   if(obj[5].equals(1)){
-	    		   listTypes.add("Payroll End Month");
-	    		   mTypeIndex.put("Payroll End Month","SENM");
-	    	   }
-	    	}*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
@@ -771,14 +737,6 @@ public class DoAppointmentSchedule extends SelectorComposer<Component>{
 
 	public void setmTypeIndex(Map<String, String> mTypeIndex) {
 		this.mTypeIndex = mTypeIndex;
-	}
-
-	public Integer getFiltTahun() {
-		return filtTahun;
-	}
-
-	public void setFiltTahun(Integer filtTahun) {
-		this.filtTahun = filtTahun;
 	}
 
 	public String getFiltNikMarketing() {

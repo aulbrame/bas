@@ -1,4 +1,4 @@
-package com.sai.espt.model;
+package com.sai.bas.model;
 
 import java.util.Collections;
 import java.util.Comparator;

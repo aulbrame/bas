@@ -47,32 +47,6 @@ public class UserInitializationVm  {
 	@AfterCompose
 	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
 		Selectors.wireComponents(view, this, false);
-		/*List<String> listMonth = new ArrayList<>();
-		mMonthIndex = new HashMap<>();
-		String[] months = new DateFormatSymbols().getMonths();
-	    for (int i = 0; i < months.length; i++) {
-	      if(i == 12) break;
-	      String month = months[i];
-	      listMonth.add(month);
-	      mMonthIndex.put(month, (i+1));
-	      System.out.println("month = " + month);
-	    }
-	    try {
-			listBulan = new ListModelList<String>(listMonth);
-			if(cbTanggal!=null){
-				cbTanggal.setModel(listBulan);			
-				cbTanggal.setItemRenderer(new ComboitemRenderer<String>() {
-	
-					@Override
-					public void render(Comboitem item, String data, int index) throws Exception {
-						item.setLabel(data);
-						item.setId(""+index);
-					}
-				});
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
 		try {			
 			if(oUser!=null)
 			oUser = (AppUser) zkSession.getAttribute("oUser");
@@ -80,30 +54,6 @@ public class UserInitializationVm  {
 			e.printStackTrace();
 		}
 	}
-
-	/*public String getFiltTrxDate() {
-		return filtTrxDate;
-	}
-
-	public void setFiltTrxDate(String filtTrxDate) {
-		this.filtTrxDate = filtTrxDate;
-	}
-
-	public ListModelList<String> getListBulan() {
-		return listBulan;
-	}
-
-	public void setListBulan(ListModelList<String> listBulan) {
-		this.listBulan = listBulan;
-	}
-
-	public Map<String, Integer> getmMonthIndex() {
-		return mMonthIndex;
-	}
-
-	public void setmMonthIndex(Map<String, Integer> mMonthIndex) {
-		this.mMonthIndex = mMonthIndex;
-	}*/
 
 	public Combobox getCbTanggal() {
 		return cbTanggal;

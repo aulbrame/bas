@@ -43,11 +43,11 @@ public class HeaderVm {
 			transaction.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 		if (zkSession.getAttribute("oUser") != null) {				
 			zkSession.removeAttribute("oUser");	
 		}
-		if (zkSession.getAttribute("oUserKacab") != null) {				
+		/*if (zkSession.getAttribute("oUserKacab") != null) {				
 				zkSession.removeAttribute("oUserKacab");	
 		}	
 		if (zkSession.getAttribute("lhseqno") != null) {				

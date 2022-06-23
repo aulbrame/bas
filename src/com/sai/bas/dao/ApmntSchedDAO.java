@@ -52,16 +52,16 @@ public class ApmntSchedDAO {
 	public static List<String> getBranch(String appUserId) throws Exception {
 		List<String> listBranch = null;
 		session = StoreHibernateUtil.openSession();
-		listBranch = session.createSQLQuery("select brcode+'-'+brname from Branch where brcode in (select distinct bubrcode from BranchUser where buuserid='"+appUserId+"')").list();
+		listBranch = session.createSQLQuery("select brcode+'-'+brname from Branch where brcode in (select distinct bubrcode from BranchUser where buuserid='"+appUserId+"') order by brcode").list();
 		session.close();
 		return listBranch;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static List<String> getTeam(String appUserId) throws Exception {
+	public static List<String> getTeam(String brcode) throws Exception {
 		List<String> listMTeam = null;
 		session = StoreHibernateUtil.openSession();
-		listMTeam = session.createSQLQuery("select bmtbrcode+'/'+bmtteam+'('+bmtname+')' from BranchMarketingTeam where bmtbrcode in (select distinct bubrcode from BranchUser where buuserid='"+appUserId+"')").list();
+		listMTeam = session.createSQLQuery("select bmtteam+' - '+bmtname from BranchMarketingTeam where bmtbrcode='"+brcode+"'").list();
 		session.close();
 		return listMTeam;	
 	}
